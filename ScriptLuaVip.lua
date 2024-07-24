@@ -4,12 +4,12 @@ if game.PlaceId ~= 13864667823 then
 	if game.PlaceId == 14775231477 or game.PlaceId == 13864661000 then
 		
 	-- Free Gamepasses (LOBBY)
-		local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/RScriptz/RobloxScripts/main/OrionLibKeybind.lua')))()
-		local Window = OrionLib:MakeWindow({
+		local ScriptLuaVipLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/3sut2z/ScriptLuaVip/main/ScriptLuaVipkeybind.lua')))()
+		local Window = ScriptLuaVipLib:MakeWindow({
 			Name = "ScriptLuaVip",
 			HidePremium = false,
 			SaveConfig = true,
-			ConfigFolder = "OrionTest",
+			ConfigFolder = "ScriptLuaVipTest",
 			IntroText = "Loading Script..."
 		})
 		local Tab = Window:MakeTab({
@@ -47,7 +47,7 @@ else
 	Part.Transparency = 1
 
 	-- Locals
-	local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/RScriptz/RobloxScripts/main/OrionLibKeybind.lua')))()
+	local ScriptLuaVipLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/3sut2z/ScriptLuaVip/main/ScriptLuaVipkeybind.lua')))()
 	local Events = game:GetService("ReplicatedStorage"):WaitForChild("Events")
 	local SelectedItem = "Med Kit"
 	local Damange = 5
