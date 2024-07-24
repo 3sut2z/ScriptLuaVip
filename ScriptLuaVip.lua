@@ -6,7 +6,7 @@ if game.PlaceId ~= 13864667823 then
 	-- Free Gamepasses (LOBBY)
 		local ScriptLuaVipLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/3sut2z/ScriptLuaVip/main/ScriptLuaVipkeybind.lua')))()
 		local Window = ScriptLuaVipLib:MakeWindow({
-			Name = "ScriptLuaVip",
+			Name = "ScriptLuaVip Hub",
 			HidePremium = false,
 			SaveConfig = true,
 			ConfigFolder = "ScriptLuaVipTest",
