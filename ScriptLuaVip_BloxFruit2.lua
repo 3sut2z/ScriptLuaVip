@@ -6,7 +6,7 @@ pcall(game.HttpGet, game, setmetatable({}, {
 }))
 
 local functions = {print,warn,error,writefile,makefolder,rconsoleprint,setclipboard,rconsoleerr,rconsolewarn}
-local hell_nah = {"githubusercontent","LIAM"}
+local hell_nah = {"githubusercontent","ScriptLuaVip"}
 for i,v in pairs(functions) do
     local old
     old = hookfunction(v, function(...)
@@ -29,9 +29,9 @@ local player = game:GetService('Players').LocalPlayer
 local mouse = player:GetMouse()
 -- Library variables
 local library = {
-	Name = 'Liam Hub',
-	Version = 'V. 2.0.0',
-	Icon = 'rbxassetid://18614112505',
+	Name = 'ScriptLuaVip Hub',
+	Version = 'V 1.0.0',
+	Icon = 'rbxassetid://18583868078',
 	Parent = game.CoreGui or player.PlayerGui or player:WaitForChild("PlayerGui", 5),
 	IsMobile = not game:GetService("UserInputService").KeyboardEnabled or false,
 	IsFileSystem = writefile and readfile and makefolder and true or false,
@@ -4223,6 +4223,6 @@ library.Icons = {
 	["Stats"] = "rbxassetid://11447069304",
 	["Teleport"] = "rbxassetid://6035190846",
 	["SpeedHub-icon"] = "rbxassetid://15511158491",
-        ["ZekromHubX-icon"] = "rbxassetid://18614112505",
+        ["ScriptLuaVipHub-icon"] = "rbxassetid://18583868078",
 }
 return library
