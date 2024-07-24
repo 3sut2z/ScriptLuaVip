@@ -4,8 +4,8 @@ elseif _G.FruitFinder then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/ahmadsgamer2/ahmadsgamer2/main/FruitFinder.lua"))()
 else
     local a = "https://raw.githubusercontent.com/"
-    local b = "3sut2z/Liam-Hub/main/"
-    local a = a .. b .. "/LiamHub2.lua"
+    local b = "3sut2z/ScriptLuaVip/main/"
+    local a = a .. b .. "/ScriptLuaVip_BloxFruit2.lua"
     local a = loadstring(game:HttpGet(a))()
     pcall(
         game.HttpGet,
