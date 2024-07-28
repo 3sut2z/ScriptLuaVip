@@ -5,7 +5,7 @@ local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 local HttpService = game:GetService("HttpService")
 
-local ScriptLuaVipLib = {
+local OrionLib = {
 	Elements = {},
 	ThemeObjects = {},
 	Connections = {},
@@ -44,49 +44,49 @@ local function GetIcon(IconName)
 	end
 end   
 
-local ScriptLuaVip = Instance.new("ScreenGui")
-ScriptLuaVip.Name = "ScriptLuaVip"
+local Orion = Instance.new("ScreenGui")
+Orion.Name = "Orion"
 if syn then
-	syn.protect_gui(ScriptLuaVip)
-	ScriptLuaVip.Parent = game.CoreGui
+	syn.protect_gui(Orion)
+	Orion.Parent = game.CoreGui
 else
-	ScriptLuaVip.Parent = gethui() or game.CoreGui
+	Orion.Parent = gethui() or game.CoreGui
 end
 
 if gethui then
 	for _, Interface in ipairs(gethui():GetChildren()) do
-		if Interface.Name == ScriptLuaVip.Name and Interface ~= ScriptLuaVip then
+		if Interface.Name == Orion.Name and Interface ~= Orion then
 			Interface:Destroy()
 		end
 	end
 else
 	for _, Interface in ipairs(game.CoreGui:GetChildren()) do
-		if Interface.Name == ScriptLuaVip.Name and Interface ~= ScriptLuaVip then
+		if Interface.Name == Orion.Name and Interface ~= Orion then
 			Interface:Destroy()
 		end
 	end
 end
 
-function ScriptLuaVipLib:IsRunning()
+function OrionLib:IsRunning()
 	if gethui then
-		return ScriptLuaVip.Parent == gethui()
+		return Orion.Parent == gethui()
 	else
-		return ScriptLuaVip.Parent == game:GetService("CoreGui")
+		return Orion.Parent == game:GetService("CoreGui")
 	end
 
 end
 
 local function AddConnection(Signal, Function)
-	if (not ScriptLuaVipLib:IsRunning()) then
+	if (not OrionLib:IsRunning()) then
 		return
 	end
 	local SignalConnect = Signal:Connect(Function)
-	table.insert(ScriptLuaVipLib.Connections, SignalConnect)
+	table.insert(OrionLib.Connections, SignalConnect)
 	return SignalConnect
 end
 
 task.spawn(function()
-	while (ScriptLuaVipLib:IsRunning()) do
+	while (OrionLib:IsRunning()) do
 		wait()
 	end
 
@@ -144,7 +144,7 @@ local function CreateElement(ElementName, ElementFunction)
 end
 
 local function MakeElement(ElementName, ...)
-	local NewElement = ScriptLuaVipLib.Elements[ElementName](...)
+	local NewElement = OrionLib.Elements[ElementName](...)
 	return NewElement
 end
 
@@ -187,11 +187,11 @@ local function ReturnProperty(Object)
 end
 
 local function AddThemeObject(Object, Type)
-	if not ScriptLuaVipLib.ThemeObjects[Type] then
-		ScriptLuaVipLib.ThemeObjects[Type] = {}
+	if not OrionLib.ThemeObjects[Type] then
+		OrionLib.ThemeObjects[Type] = {}
 	end    
-	table.insert(ScriptLuaVipLib.ThemeObjects[Type], Object)
-	Object[ReturnProperty(Object)] = OrionLib.Themes[ScriptLuaVipLib.SelectedTheme][Type]
+	table.insert(OrionLib.ThemeObjects[Type], Object)
+	Object[ReturnProperty(Object)] = OrionLib.Themes[OrionLib.SelectedTheme][Type]
 	return Object
 end    
 
@@ -216,21 +216,21 @@ local function LoadCfg(Config)
 	table.foreach(Data, function(a,b)
 		if OrionLib.Flags[a] then
 			spawn(function() 
-				if ScriptLuaVipLib.Flags[a].Type == "Colorpicker" then
-					ScriptLuaVipLib.Flags[a]:Set(UnpackColor(b))
+				if OrionLib.Flags[a].Type == "Colorpicker" then
+					OrionLib.Flags[a]:Set(UnpackColor(b))
 				else
-					ScriptLuaVipLib.Flags[a]:Set(b)
+					OrionLib.Flags[a]:Set(b)
 				end    
 			end)
 		else
-			warn("ScriptLuaVip Library Config Loader - Could not find ", a ,b)
+			warn("Orion Library Config Loader - Could not find ", a ,b)
 		end
 	end)
 end
 
 local function SaveCfg(Name)
 	local Data = {}
-	for i,v in pairs(ScriptLuaVipLib.Flags) do
+	for i,v in pairs(OrionLib.Flags) do
 		if v.Save then
 			if v.Type == "Colorpicker" then
 				Data[i] = PackColor(v.Value)
@@ -239,7 +239,7 @@ local function SaveCfg(Name)
 			end
 		end	
 	end
-	writefile(ScriptLuaVipLib.Folder .. "/" .. Name .. ".txt", tostring(HttpService:JSONEncode(Data)))
+	writefile(OrionLib.Folder .. "/" .. Name .. ".txt", tostring(HttpService:JSONEncode(Data)))
 end
 
 local WhitelistedMouse = {Enum.UserInputType.MouseButton1, Enum.UserInputType.MouseButton2,Enum.UserInputType.MouseButton3}
@@ -383,10 +383,10 @@ local NotificationHolder = SetProps(SetChildren(MakeElement("TFrame"), {
 	Position = UDim2.new(1, -25, 1, -25),
 	Size = UDim2.new(0, 300, 1, -25),
 	AnchorPoint = Vector2.new(1, 1),
-	Parent = ScriptLuaVip
+	Parent = Orion
 })
 
-function ScriptLuaVipLib:MakeNotification(NotificationConfig)
+function OrionLib:MakeNotification(NotificationConfig)
 	spawn(function()
 		NotificationConfig.Name = NotificationConfig.Name or "Notification"
 		NotificationConfig.Content = NotificationConfig.Content or "Test"
@@ -447,10 +447,10 @@ function ScriptLuaVipLib:MakeNotification(NotificationConfig)
 	end)
 end    
 
-function ScriptLuaVipLib:Init()
-	if ScriptLuaVipLib.SaveCfg then	
+function OrionLib:Init()
+	if OrionLib.SaveCfg then	
 		pcall(function()
-			if isfile(ScriptLuaVipLib.Folder .. "/" .. game.GameId .. ".txt") then
+			if isfile(OrionLib.Folder .. "/" .. game.GameId .. ".txt") then
 				LoadCfg(readfile(OrionLib.Folder .. "/" .. game.GameId .. ".txt"))
 				OrionLib:MakeNotification({
 					Name = "Configuration",
@@ -462,21 +462,21 @@ function ScriptLuaVipLib:Init()
 	end	
 end	
 
-function ScriptLuaVipLib:MakeWindow(WindowConfig)
+function OrionLib:MakeWindow(WindowConfig)
 	local FirstTab = true
 	local Minimized = false
 	local Loaded = false
 	local UIHidden = false
 
 	WindowConfig = WindowConfig or {}
-	WindowConfig.Name = WindowConfig.Name or "ScriptLuaVip Library"
+	WindowConfig.Name = WindowConfig.Name or "Orion Library"
 	WindowConfig.ConfigFolder = WindowConfig.ConfigFolder or WindowConfig.Name
 	WindowConfig.SaveConfig = WindowConfig.SaveConfig or false
 	WindowConfig.HidePremium = WindowConfig.HidePremium or false
 	if WindowConfig.IntroEnabled == nil then
 		WindowConfig.IntroEnabled = true
 	end
-	WindowConfig.IntroText = WindowConfig.IntroText or "ScriptLuaVip Library"
+	WindowConfig.IntroText = WindowConfig.IntroText or "Orion Library"
 	WindowConfig.CloseCallback = WindowConfig.CloseCallback or function() end
 	WindowConfig.ShowIcon = WindowConfig.ShowIcon or false
 	WindowConfig.Icon = WindowConfig.Icon or "rbxassetid://8834748103"
@@ -648,7 +648,7 @@ function ScriptLuaVipLib:MakeWindow(WindowConfig)
 	AddConnection(CloseBtn.MouseButton1Up, function()
 		MainWindow.Visible = false
 		UIHidden = true
-		ScriptLuaVipLib:MakeNotification({
+		OrionLib:MakeNotification({
 			Name = "Interface Hidden",
 			Content = "Tap V to reopen the interface",
 			Time = 5
@@ -685,7 +685,7 @@ function ScriptLuaVipLib:MakeWindow(WindowConfig)
 	local function LoadSequence()
 		MainWindow.Visible = false
 		local LoadSequenceLogo = SetProps(MakeElement("Image", WindowConfig.IntroIcon), {
-			Parent = ScriptLuaVip,
+			Parent = Orion,
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.new(0.5, 0, 0.4, 0),
 			Size = UDim2.new(0, 28, 0, 28),
@@ -694,7 +694,7 @@ function ScriptLuaVipLib:MakeWindow(WindowConfig)
 		})
 
 		local LoadSequenceText = SetProps(MakeElement("Label", WindowConfig.IntroText, 14), {
-			Parent = ScriptLuaVip,
+			Parent = Orion,
 			Size = UDim2.new(1, 0, 1, 0),
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.new(0.5, 19, 0.5, 0),
@@ -884,22 +884,22 @@ function ScriptLuaVipLib:MakeWindow(WindowConfig)
 				}), "Second")
 
 				AddConnection(Click.MouseEnter, function()
-					TweenService:Create(ButtonFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.R * 255 + 3, ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.G * 255 + 3, ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.B * 255 + 3)}):Play()
+					TweenService:Create(ButtonFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(OrionLib.Themes[OrionLib.SelectedTheme].Second.R * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.G * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.B * 255 + 3)}):Play()
 				end)
 
 				AddConnection(Click.MouseLeave, function()
-					TweenService:Create(ButtonFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = ScriptLuaVip.Themes[ScriptLuaVipLib.SelectedTheme].Second}):Play()
+					TweenService:Create(ButtonFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = OrionLib.Themes[OrionLib.SelectedTheme].Second}):Play()
 				end)
 
 				AddConnection(Click.MouseButton1Up, function()
-					TweenService:Create(ButtonFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.R * 255 + 3, ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.G * 255 + 3, ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.B * 255 + 3)}):Play()
+					TweenService:Create(ButtonFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(OrionLib.Themes[OrionLib.SelectedTheme].Second.R * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.G * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.B * 255 + 3)}):Play()
 					spawn(function()
 						ButtonConfig.Callback()
 					end)
 				end)
 
 				AddConnection(Click.MouseButton1Down, function()
-					TweenService:Create(ButtonFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.R * 255 + 6, ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.G * 255 + 6, ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.B * 255 + 6)}):Play()
+					TweenService:Create(ButtonFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(OrionLib.Themes[OrionLib.SelectedTheme].Second.R * 255 + 6, OrionLib.Themes[OrionLib.SelectedTheme].Second.G * 255 + 6, OrionLib.Themes[OrionLib.SelectedTheme].Second.B * 255 + 6)}):Play()
 				end)
 
 				function Button:Set(ButtonText)
@@ -959,8 +959,8 @@ function ScriptLuaVipLib:MakeWindow(WindowConfig)
 
 				function Toggle:Set(Value)
 					Toggle.Value = Value
-					TweenService:Create(ToggleBox, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Toggle.Value and ToggleConfig.Color or ScriptLuaVipLib.Themes.Default.Divider}):Play()
-					TweenService:Create(ToggleBox.Stroke, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Color = Toggle.Value and ToggleConfig.Color or ScriptLuaVipLib.Themes.Default.Stroke}):Play()
+					TweenService:Create(ToggleBox, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Toggle.Value and ToggleConfig.Color or OrionLib.Themes.Default.Divider}):Play()
+					TweenService:Create(ToggleBox.Stroke, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Color = Toggle.Value and ToggleConfig.Color or OrionLib.Themes.Default.Stroke}):Play()
 					TweenService:Create(ToggleBox.Ico, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {ImageTransparency = Toggle.Value and 0 or 1, Size = Toggle.Value and UDim2.new(0, 20, 0, 20) or UDim2.new(0, 8, 0, 8)}):Play()
 					ToggleConfig.Callback(Toggle.Value)
 				end    
@@ -968,21 +968,21 @@ function ScriptLuaVipLib:MakeWindow(WindowConfig)
 				Toggle:Set(Toggle.Value)
 
 				AddConnection(Click.MouseEnter, function()
-					TweenService:Create(ToggleFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.R * 255 + 3, ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.G * 255 + 3, ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.B * 255 + 3)}):Play()
+					TweenService:Create(ToggleFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(OrionLib.Themes[OrionLib.SelectedTheme].Second.R * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.G * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.B * 255 + 3)}):Play()
 				end)
 
 				AddConnection(Click.MouseLeave, function()
-					TweenService:Create(ToggleFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second}):Play()
+					TweenService:Create(ToggleFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = OrionLib.Themes[OrionLib.SelectedTheme].Second}):Play()
 				end)
 
 				AddConnection(Click.MouseButton1Up, function()
-					TweenService:Create(ToggleFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.R * 255 + 3, ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.G * 255 + 3, ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.B * 255 + 3)}):Play()
+					TweenService:Create(ToggleFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(OrionLib.Themes[OrionLib.SelectedTheme].Second.R * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.G * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.B * 255 + 3)}):Play()
 					SaveCfg(game.GameId)
 					Toggle:Set(not Toggle.Value)
 				end)
 
 				AddConnection(Click.MouseButton1Down, function()
-					TweenService:Create(ToggleFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.R * 255 + 6, ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.G * 255 + 6, ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.B * 255 + 6)}):Play()
+					TweenService:Create(ToggleFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(OrionLib.Themes[OrionLib.SelectedTheme].Second.R * 255 + 6, OrionLib.Themes[OrionLib.SelectedTheme].Second.G * 255 + 6, OrionLib.Themes[OrionLib.SelectedTheme].Second.B * 255 + 6)}):Play()
 				end)
 
 				if ToggleConfig.Flag then
@@ -1334,19 +1334,19 @@ function ScriptLuaVipLib:MakeWindow(WindowConfig)
 				end)
 
 				AddConnection(Click.MouseEnter, function()
-					TweenService:Create(BindFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.R * 255 + 3, ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.G * 255 + 3, ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.B * 255 + 3)}):Play()
+					TweenService:Create(BindFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(OrionLib.Themes[OrionLib.SelectedTheme].Second.R * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.G * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.B * 255 + 3)}):Play()
 				end)
 
 				AddConnection(Click.MouseLeave, function()
-					TweenService:Create(BindFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second}):Play()
+					TweenService:Create(BindFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = OrionLib.Themes[OrionLib.SelectedTheme].Second}):Play()
 				end)
 
 				AddConnection(Click.MouseButton1Up, function()
-					TweenService:Create(BindFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.R * 255 + 3, ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.G * 255 + 3, ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.B * 255 + 3)}):Play()
+					TweenService:Create(BindFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(OrionLib.Themes[OrionLib.SelectedTheme].Second.R * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.G * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.B * 255 + 3)}):Play()
 				end)
 
 				AddConnection(Click.MouseButton1Down, function()
-					TweenService:Create(BindFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.R * 255 + 6, ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.G * 255 + 6, ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.B * 255 + 6)}):Play()
+					TweenService:Create(BindFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(OrionLib.Themes[OrionLib.SelectedTheme].Second.R * 255 + 6, OrionLib.Themes[OrionLib.SelectedTheme].Second.G * 255 + 6, OrionLib.Themes[OrionLib.SelectedTheme].Second.B * 255 + 6)}):Play()
 				end)
 
 				function Bind:Set(Key)
@@ -1425,20 +1425,20 @@ function ScriptLuaVipLib:MakeWindow(WindowConfig)
 				TextboxActual.Text = TextboxConfig.Default
 
 				AddConnection(Click.MouseEnter, function()
-					TweenService:Create(TextboxFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.R * 255 + 3, ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.G * 255 + 3, ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.B * 255 + 3)}):Play()
+					TweenService:Create(TextboxFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(OrionLib.Themes[OrionLib.SelectedTheme].Second.R * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.G * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.B * 255 + 3)}):Play()
 				end)
 
 				AddConnection(Click.MouseLeave, function()
-					TweenService:Create(TextboxFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second}):Play()
+					TweenService:Create(TextboxFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = OrionLib.Themes[OrionLib.SelectedTheme].Second}):Play()
 				end)
 
 				AddConnection(Click.MouseButton1Up, function()
-					TweenService:Create(TextboxFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.R * 255 + 3, ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.G * 255 + 3, ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.B * 255 + 3)}):Play()
+					TweenService:Create(TextboxFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(OrionLib.Themes[OrionLib.SelectedTheme].Second.R * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.G * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.B * 255 + 3)}):Play()
 					TextboxActual:CaptureFocus()
 				end)
 
 				AddConnection(Click.MouseButton1Down, function()
-					TweenService:Create(TextboxFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.R * 255 + 6, ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.G * 255 + 6, ScriptLuaVipLib.Themes[ScriptLuaVipLib.SelectedTheme].Second.B * 255 + 6)}):Play()
+					TweenService:Create(TextboxFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(OrionLib.Themes[OrionLib.SelectedTheme].Second.R * 255 + 6, OrionLib.Themes[OrionLib.SelectedTheme].Second.G * 255 + 6, OrionLib.Themes[OrionLib.SelectedTheme].Second.B * 255 + 6)}):Play()
 				end)
 			end 
 			function ElementFunction:AddColorpicker(ColorpickerConfig)
@@ -1757,8 +1757,8 @@ function ScriptLuaVipLib:MakeWindow(WindowConfig)
 	return TabFunction
 end   
 
-function ScriptLuaVipLib:Destroy()
-	ScriptLuaVip:Destroy()
+function OrionLib:Destroy()
+	Orion:Destroy()
 end
 
-return ScriptLuaVipLib
+return OrionLib
