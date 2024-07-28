@@ -6,7 +6,7 @@ if game.PlaceId ~= 13864667823 then
 	-- Free Gamepasses (LOBBY)
 		local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/3sut2z/ScriptLuaVip/main/ScriptLuaVipkeybind.lua')))()
 		local Window = OrionLib:MakeWindow({
-			Name = "ScriptLuaVip",
+			Name = "Breaking Blitz",
 			HidePremium = false,
 			SaveConfig = true,
 			ConfigFolder = "OrionTest",
@@ -1659,7 +1659,7 @@ else
 		end    
 	})
 
-	Notify('Loaded!', "Script Successfully Loaded!\nJoin Our Discord At (https://discord.com/invite/XHS5WPxMrr) For Support, Questions And Updates!\nThe Script Is Open Source So Feel Free To Look At The Code!", 'rbxassetid://4483345998', 15)
+	Notify('Loaded!', "Script Successfully Loaded!", 'rbxassetid://4483345998', 15)
 	ScriptLoaded = true
 	OrionLib:Init()
 end
