@@ -2,14 +2,14 @@ local OrionLib = loadstring(game:HttpGet(
                                 ('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
 local Window = OrionLib:MakeWindow({
-    Name = [[<font color="rgb(255,0,0)">haha</font>]],
+    Name = [[<font color="rgb(255,0,0)">ScriptLuaVip</font>]],
     HidePremium = false,
     SaveConfig = true,
     ConfigFolder = "OrionTest"
 })
 
-local Tab1 = Window:MakeTab({Name = "Main", Icon = "", PremiumOnly = false})
-local Tab3 = Window:MakeTab({Name = "ESP", Icon = "", PremiumOnly = false})
+local Tab1 = Window:MakeTab({Name = "Main", Icon = "home", PremiumOnly = false})
+local Tab3 = Window:MakeTab({Name = "ESP", Icon = "wifi", PremiumOnly = false})
 local Tab2 = Window:MakeTab({Name = "Character", Icon = "", PremiumOnly = false})
 local Expander = false
 
