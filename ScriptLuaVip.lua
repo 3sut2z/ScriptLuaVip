@@ -6,10 +6,10 @@ if game.PlaceId ~= 13864667823 then
 	-- Free Gamepasses (LOBBY)
 		local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/3sut2z/ScriptLuaVip/main/ScriptLuaVipkeybind.lua')))()
 		local Window = OrionLib:MakeWindow({
-			Name = "Breaking Blitz",
+			Name = "ScriptLuaVip",
 			HidePremium = false,
 			SaveConfig = true,
-			ConfigFolder = "OrionTest",
+			ConfigFolder = "Please wait...",
 			IntroText = "Loading Script..."
 		})
 		local Tab = Window:MakeTab({
@@ -405,15 +405,15 @@ else
 	
 	-- Main Script / GUI
 	local Window = OrionLib:MakeWindow({
-		Name = "Breaking Blitz",
+		Name = "ScriptLuaVip",
 		HidePremium = false,
 		SaveConfig = false,
-		ConfigFolder = "OrionTest",
+		ConfigFolder = "Please wait...",
 		IntroText = "Loading Script..."
 	})
 
 	local Tab = Window:MakeTab({
-		Name = "Game Breaking",
+		Name = "Game",
 		Icon = "rbxassetid://4483345998",
 		PremiumOnly = false
 	})
