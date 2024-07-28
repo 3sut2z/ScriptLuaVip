@@ -47,7 +47,7 @@ else
 	Part.Transparency = 1
 
 	-- Locals
-	local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/RScriptz/RobloxScripts/main/OrionLibKeybind.lua')))()
+	local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/3sut2z/ScriptLuaVip/main/ScriptLuaVipkeybind.lua')))()
 	local Events = game:GetService("ReplicatedStorage"):WaitForChild("Events")
 	local SelectedItem = "Med Kit"
 	local Damange = 5
