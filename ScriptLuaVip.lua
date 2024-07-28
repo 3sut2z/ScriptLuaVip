@@ -4,12 +4,12 @@ if game.PlaceId ~= 13864667823 then
 	if game.PlaceId == 14775231477 or game.PlaceId == 13864661000 then
 		
 	-- Free Gamepasses (LOBBY)
-		local ScriptLuaVipLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/3sut2z/ScriptLuaVip/main/ScriptLuaVipkeybind.lua')))()
-		local Window = ScriptLuaVipLib:MakeWindow({
-			Name = "ScriptLuaVip Hub",
+		local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/RScriptz/RobloxScripts/main/OrionLibKeybind.lua')))()
+		local Window = OrionLib:MakeWindow({
+			Name = "ScriptLuaVip",
 			HidePremium = false,
 			SaveConfig = true,
-			ConfigFolder = "ScriptLuaVipTest",
+			ConfigFolder = "OrionTest",
 			IntroText = "Loading Script..."
 		})
 		local Tab = Window:MakeTab({
@@ -47,7 +47,7 @@ else
 	Part.Transparency = 1
 
 	-- Locals
-	local ScriptLuaVipLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/3sut2z/ScriptLuaVip/main/ScriptLuaVipkeybind.lua')))()
+	local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/RScriptz/RobloxScripts/main/OrionLibKeybind.lua')))()
 	local Events = game:GetService("ReplicatedStorage"):WaitForChild("Events")
 	local SelectedItem = "Med Kit"
 	local Damange = 5
@@ -1659,7 +1659,7 @@ else
 		end    
 	})
 
-	Notify('Loaded!', "Script Successfully Loaded!\nJoin Our Discord At (https://discord.gg/usHF6Gf9db) For Support, Questions And Updates!\nThe Script Is Open Source So Feel Free To Look At The Code!", 'rbxassetid://4483345998', 15)
+	Notify('Loaded!', "Script Successfully Loaded!\nJoin Our Discord At (https://discord.com/invite/XHS5WPxMrr) For Support, Questions And Updates!\nThe Script Is Open Source So Feel Free To Look At The Code!", 'rbxassetid://4483345998', 15)
 	ScriptLoaded = true
 	OrionLib:Init()
 end
