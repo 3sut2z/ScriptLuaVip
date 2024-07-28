@@ -2,7 +2,7 @@ local OrionLib = loadstring(game:HttpGet(
                                 ('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
 local Window = OrionLib:MakeWindow({
-    Name = [[<font color="rgb(255,0,0)">ScriptLuaVip</font>]],
+    Name = [[<font color="rgb(0,0,0)">ScriptLuaVip</font>]],
     HidePremium = false,
     SaveConfig = true,
     ConfigFolder = "OrionTest"
@@ -163,6 +163,6 @@ Tab2:AddSlider({
 Tab3:AddButton({
     Name = "Skeleton ESP",
     Callback = function(v)
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Blissful4992/ESPs/main/SkeletonESP.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/3sut2z/ScriptLuaVip/main/ScriptLuaVip_ESP.lua"))()
     end
 })
