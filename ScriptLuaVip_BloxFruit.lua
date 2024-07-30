@@ -2515,7 +2515,7 @@ local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shl
 local Window = OrionLib:MakeWindow({Name = "Specialized", HidePremium = false, IntroText = "Specialized", SaveConfig = true, ConfigFolder = "Specialized"})
 
 OrionLib:MakeNotification({
-	Name = "Speciallized",
+	Name = "ScriptLuaVip",
 	Content = "Choose Teams Bro?",
 	Image = "rbxassetid://4483345998",
 	Time = 7
