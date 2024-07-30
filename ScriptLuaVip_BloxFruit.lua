@@ -2511,7 +2511,7 @@ CamShake:Stop()
         return "Remaining " .. 10 - v228 .. " training sessions."
     end
 
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/3sut2z/ScriptLuaVip/main/source')))()
 local Window = OrionLib:MakeWindow({Name = "Specialized", HidePremium = false, IntroText = "Specialized", SaveConfig = true, ConfigFolder = "Specialized"})
 
 OrionLib:MakeNotification({
