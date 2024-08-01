@@ -4,7 +4,7 @@ if game.PlaceId ~= 13864667823 then
 	if game.PlaceId == 14775231477 or game.PlaceId == 13864661000 then
 		
 	-- Free Gamepasses (LOBBY)
-		local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/3sut2z/ScriptLuaVip/main/ScriptLuaVipkeybind.lua')))()
+		local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/3sut2z/ScriptLuaVip/main/OrionLibKeybind.lua')))()
 		local Window = OrionLib:MakeWindow({
 			Name = "ScriptLuaVip",
 			HidePremium = false,
@@ -47,7 +47,7 @@ else
 	Part.Transparency = 1
 
 	-- Locals
-	local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/3sut2z/ScriptLuaVip/main/ScriptLuaVipkeybind.lua')))()
+	local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/3sut2z/ScriptLuaVip/main/OrionLibKeybind.lua')))()
 	local Events = game:GetService("ReplicatedStorage"):WaitForChild("Events")
 	local SelectedItem = "Med Kit"
 	local Damange = 5
@@ -445,7 +445,7 @@ else
 	})
 
 	local Section = Tab:AddSection({
-		Name = "Humanoid Deletion"
+		Name = "Human Deletion"
 	})
 
 	Tab:AddTextbox({
@@ -1167,7 +1167,7 @@ else
 	})
 
 	local Tab = Window:MakeTab({
-		Name = "Human",
+		Name = "Player",
 		Icon = "rbxassetid://4483345998",
 		PremiumOnly = false
 	})
@@ -1203,7 +1203,7 @@ else
 	})
 
 	local Section = Tab:AddSection({
-		Name = "Human"
+		Name = "Player"
 	})
 
 	Tab:AddToggle({
