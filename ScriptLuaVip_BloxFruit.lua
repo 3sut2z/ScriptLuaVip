@@ -6047,44 +6047,6 @@ local CavandisPos = CFrame.new(5311.07421875, 426.0243835449219, 165.12762451171
             Name = "ArenaTrainer"
         })
 
-        IQ:AddLabel("For those who don't understand, this is an automatic hit dummy.")
-
-        IQ:AddToggle({
-            Name = "Automatically hit the dummy",
-            Default = false,
-            Callback = function(Value)
-                _G.Namfon = Value
-                StopTween(_G.Namfon)
-            end    
-        })
-
-        local GGPos = CFrame.new(3757.732421875, 91.99540710449219, 253.65066528320312)
-        spawn(function()
-            while wait() do
-                if _G.Namfon and World3 then
-                    pcall(function()
-                        if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true then
-                            if string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text,"Training Dummy") or string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text,"Training Dummy") or string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text,"Training Dummy") then
-                                if game:GetService("Workspace").Enemies:FindFirstChild("Training Dummy [Lv. 1500]") or game:GetService("Workspace").Enemies:FindFirstChild("Training Dummy [Lv. 1500]") or game:GetService("Workspace").Enemies:FindFirstChild("Training Dummy [Lv. 1500]") then
-                                    for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                                        if v.Name == "Training Dummy [Lv. 1500]" or v.Name == "Training Dummy [Lv. 1500]" or v.Name == "Training Dummy [Lv. 1500]" then
-                                            if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                                repeat wait()
-                                                    AutoHaki()
-                                                    EquipWeapon(_G.SelectWeapon)
-                                                    Fastattack = true
-                                                    v.HumanoidRootPart.CanCollide = false
-                                                    v.Humanoid.WalkSpeed = 0
-                                                    v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                                    topos(v.HumanoidRootPart.CFrame * Pos)
-                                                    game:GetService("VirtualUser"):CaptureController()
-                                                    game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
-                                                until _G.Namfon == false or v.Humanoid.Health <= 0 or not v.Parent
-                                                Fastattack = false
-                                            end
-                                        end
-                                    end
-                                else
                                 if BypassTP then
                                 if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - GGPos.Position).Magnitude > 1500 then
                                 BTP(GGPos)
@@ -6115,14 +6077,6 @@ local CavandisPos = CFrame.new(5311.07421875, 426.0243835449219, 165.12762451171
                 end
             end
         end)
-
-        IQ:AddToggle({
-            Name = "Automatically hit the dummy[HOP]",
-            Default = false,
-            Callback = function(Value)
-                _G.Hop = Value
-            end    
-        })
 
         local Section = IQ:AddSection({
             Name = "Seperator Hallow Scythe"
