@@ -6082,8 +6082,6 @@ local CavandisPos = CFrame.new(5311.07421875, 426.0243835449219, 165.12762451171
             Name = "Seperator Hallow Scythe"
         })
 
-
-
         IQ:AddToggle({
             Name = "Auto Hallow Scythe",
             Default = false,
